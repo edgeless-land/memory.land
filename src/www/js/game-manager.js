@@ -71,10 +71,10 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     async function refreshLeaderboard() {
-        leaderboard_scores.innerHTML = "";
-        let req = await fetch(API + "/leaderboard/?amount=10");
+        let req = await fetch(API + "/leaderboard/?amount=20");
         let scores = await req.json();
-
+        
+        leaderboard_scores.innerHTML = "";
         for (const score of scores) {
             let item = document.createElement("li");
             item.innerText = `${score.user.initials} - ${score.score}`;

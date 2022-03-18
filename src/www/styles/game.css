@@ -90,12 +90,16 @@ memory-board {
 
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
+  gap: 1rem;
   width: 100%;
   height: 100%;
   padding-left: 1rem;
   color: white;
   border-radius: 0.2rem;
+}
+
+#leaderboard > * {
+  margin: 0;
 }
 
 @media screen and (max-width: 860px) {
