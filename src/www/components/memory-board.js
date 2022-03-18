@@ -7,6 +7,7 @@ class MemoryBoard extends HTMLElement {
     #cards = [];
     #answers = [];
     #picked = [];
+    #bad_picked = [];
 
     // Logic
     #locked = false;
@@ -63,6 +64,7 @@ class MemoryBoard extends HTMLElement {
 
         if (this.#locked) return;
         if (this.#picked.includes(index)) return;
+        if (this.#bad_picked.includes(index)) return;
 
         if (this.#answers.includes(index)) {
             let e = new Event("card-correct");
@@ -77,6 +79,7 @@ class MemoryBoard extends HTMLElement {
             this.dispatchEvent(e);
 
             this.#cards[index].classList.add("incorrect");
+            this.#bad_picked.push(index);
         }
 
         if (this.#picked.length === this.#answers.length && this.#picked.every((value, index) => value === this.#answers[index])) {
@@ -92,6 +95,7 @@ class MemoryBoard extends HTMLElement {
         this.#cards = [];
         this.#answers = [];
         this.#picked = [];
+        this.#bad_picked = [];
         this.#locked = false;
     }
 
