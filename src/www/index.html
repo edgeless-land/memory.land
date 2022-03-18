@@ -6,13 +6,13 @@
     <title>memory.land</title>
 
     <!-- Components -->
-    <script src="components/memory-board.js" type="module"></script>
+    <script src="components/memory-board.js?v=2" type="module"></script>
 
     <!-- js -->
-    <script src="js/game-manager.js" type="module" defer></script>
+    <script src="js/game-manager.js?v=2" type="module" defer></script>
 
     <!-- css -->
-    <link rel="stylesheet" href="styles/game.css" />
+    <link rel="stylesheet" href="styles/game.css?v=2" />
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
@@ -26,7 +26,18 @@
     <div class="content">
       <div id="menu">
         <h1>Remember carefully...</h1>
-        <button id="start-game">Start</button>
+        <div class="actions">
+          <input
+            type="text"
+            name="initials"
+            id="initials"
+            maxlength="4"
+            minlength="4"
+            pattern="[a-zA-Z]+"
+            placeholder="initials"
+          />
+          <button id="start-game" class="start">Start</button>
+        </div>
       </div>
       <memory-board
         class="hidden"
@@ -34,6 +45,10 @@
         card-color-correct="white"
         card-color-incorrect="darkred"
       ></memory-board>
+    </div>
+    <div id="leaderboard">
+      <h1><span class="material-icons">bar_chart</span> Leaderboard</h1>
+      <ol id="leaderboard-scores"></ol>
     </div>
     <div class="footer">
       <div id="lives"></div>
