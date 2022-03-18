@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>memory.land</title>
+
+    <!-- Components -->
+    <script src="components/memory-board.js" type="module"></script>
+
+    <!-- js -->
+    <script src="js/game-manager.js" type="module" defer></script>
+
+    <!-- css -->
+    <link rel="stylesheet" href="styles/game.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="header">
+      <h1>Memory</h1>
+      <h1 id="score" class="hidden">0</h1>
+    </div>
+    <div class="content">
+      <div id="menu">
+        <h1>Remember carefully...</h1>
+        <button id="start-game">Start</button>
+      </div>
+      <memory-board
+        class="hidden"
+        card-color="#444"
+        card-color-correct="white"
+        card-color-incorrect="darkred"
+      ></memory-board>
+    </div>
+    <div class="footer">
+      <div id="lives"></div>
+    </div>
+  </body>
+</html>
