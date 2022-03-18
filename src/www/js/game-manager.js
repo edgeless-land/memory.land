@@ -9,8 +9,8 @@ window.addEventListener("DOMContentLoaded", () => {
     let lives = 3;
     let max_lives = 3;
     let score = 0;
-
     let round = 0;
+
     let difficulty = {
         scale: 3,
         size: 3,
@@ -25,7 +25,9 @@ window.addEventListener("DOMContentLoaded", () => {
         size_max: 7,
         answers: 3,
         answers_max: 20,
+        preview_time: 750,
     };
+
     // Functions
     function updateScore(change) {
         score += change;
@@ -45,7 +47,8 @@ window.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
             game_board.previewAnswers(difficulty.preview_time);
         }, 100);
-    
+
+        lives_icons = [];
         let icons = document.querySelector("#lives");
         icons.innerHTML = "";
         for (let i = 0; i < lives; i++) {
@@ -53,7 +56,7 @@ window.addEventListener("DOMContentLoaded", () => {
             icon.classList.add("material-icons");
             icon.classList.add("life");
             icon.innerText = "favorite";
-    
+
             lives_icons.push(icon);
             icons.appendChild(icon);
         }
@@ -65,7 +68,7 @@ window.addEventListener("DOMContentLoaded", () => {
         lives_div.classList.remove("hidden");
         game_board.classList.remove("hidden");
     }
-    
+
     function menuScreen() {
         menu.classList.remove("hidden");
         score_text.classList.add("hidden");
@@ -106,14 +109,14 @@ window.addEventListener("DOMContentLoaded", () => {
         round += 1;
         if (round % 3 === 0) {
             round += 1;
-            difficulty.scale += 2;
+            difficulty.scale += 1;
 
-            if (difficulty.size < difficulty.size_max) {
+            if (difficulty.scale % 2 === 0 && difficulty.size < difficulty.size_max) {
                 difficulty.size += 1;
             }
 
-            if (difficulty.answers < difficulty.answers_max) {
-                difficulty.answers += 2 + Math.max(0, difficulty.scale - 5);
+            if (difficulty.scale % 3 && difficulty.answers < difficulty.answers_max) {
+                difficulty.answers += 1 + Math.max(0, difficulty.scale - 5);
             }
         }
 
