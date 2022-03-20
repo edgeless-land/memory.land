@@ -101,8 +101,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
     // Show the menu
     function menuScreen() {
-        refreshLeaderboard();
-
         menu.classList.remove("hidden");
         initials_input.value = "";
         leaderboard.classList.remove("hidden");
@@ -208,4 +206,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     // Show the menu on page load
     menuScreen();
+
+    // Refresh leaderboard
+    refreshLeaderboard();
 });
