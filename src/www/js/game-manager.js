@@ -106,8 +106,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
     function menuStart() {
         // Get initials
-        if (initials_input.value.length != 4) {
-            alert("Please enter 4 letters for your initials.");
+        if (!initials_input.checkValidity()) {
+            alert("Please enter 3-5 letters for your initials.");
             return;
         }
 
