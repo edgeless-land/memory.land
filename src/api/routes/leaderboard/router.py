@@ -17,7 +17,7 @@ async def add_score_to_leaderboard(score: int, initials: str = "????"):
     """
     global LAST_PUT
 
-    if len(initials) != 4:
+    if not 3 <= len(initials) <= 5:
         raise HTTPException(400, "Initials must be 4 characters long.")
 
     if initials.isalpha() is False:
