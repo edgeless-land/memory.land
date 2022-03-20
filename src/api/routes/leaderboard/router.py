@@ -23,7 +23,7 @@ async def add_score_to_leaderboard(score: int, initials: str = "????"):
     if initials.isalpha() is False:
         raise HTTPException(400, "Initials must be alphabetic.")
 
-    if is_initials_safe(initials):
+    if not is_initials_safe(initials):
         raise HTTPException(400, "Initials are not allowed (profanity).")
 
     await eldbcc["Memory"]["Leaderboard"].insert_one(
