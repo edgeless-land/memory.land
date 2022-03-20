@@ -1,29 +1,13 @@
-import math
 from datetime import datetime, timedelta
+
 from db.client import eldbcc
 from fastapi import APIRouter
 from fastapi.exceptions import HTTPException
 
-leaderboard_router = APIRouter()
+from .helpers.blacklist import INITIALS_BLACK_LIST
+from .models.times import OfTimes
 
-INITIALS_BLACK_LIST = [
-    "aass",
-    "anus",
-    "arse",
-    "asss",
-    "clit",
-    "cock",
-    "cunt",
-    "dick",
-    "fuck",
-    "gook",
-    "jizz",
-    "shit",
-    "shiz",
-    "tits",
-    "twat",
-    "wank",
-]
+leaderboard_router = APIRouter()
 
 
 @leaderboard_router.put("/")
@@ -38,7 +22,7 @@ async def add_score_to_leaderboard(score: int, initials: str = "????"):
 
     if initials.isalpha() is False:
         raise HTTPException(400, "Initials must be alphabetic.")
-    
+
     if initials.lower() in INITIALS_BLACK_LIST:
         raise HTTPException(400, "Initials are not allowed.")
 
@@ -57,7 +41,7 @@ async def add_score_to_leaderboard(score: int, initials: str = "????"):
 
 
 @leaderboard_router.get("/")
-async def get_leaderboard(amount: int = 10):
+async def get_leaderboard(amount: int = 10, of: OfTimes = OfTimes.WEEK):
     """
     Get the leaderboard.
     """
@@ -67,7 +51,10 @@ async def get_leaderboard(amount: int = 10):
 
     leaderboard = (
         await eldbcc["Memory"]["Leaderboard"]
-        .find({}, sort=[("score", -1), ("achieved_at", -1)])
+        .find(
+            {"achieved_at": {"$gte": datetime.utcnow() - timedelta(days=int(of.value))}},
+            sort=[("score", -1), ("achieved_at", -1)],
+        )
         .to_list(amount)
     )
 
