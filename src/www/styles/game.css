@@ -77,7 +77,7 @@ memory-board {
   aspect-ratio: 1;
 }
 
-.content #menu,
+#menu,
 .content memory-board {
   position: absolute;
   width: 100%;
@@ -100,6 +100,10 @@ memory-board {
 
 #leaderboard > * {
   margin: 0;
+}
+
+#leaderboard > ol {
+  font-family: 'Courier New', Courier, monospace;
 }
 
 @media screen and (max-width: 860px) {
