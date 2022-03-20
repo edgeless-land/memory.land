@@ -117,7 +117,7 @@ class MemoryBoard extends HTMLElement {
                     display: grid;
                     grid-template-columns: repeat(${size}, 1fr);
                     grid-template-rows: repeat(${size}, 1fr);
-                    grid-gap: 1rem;
+                    grid-gap: .5rem;
                     aspect-ratio: 1;
                 }
 
@@ -127,6 +127,7 @@ class MemoryBoard extends HTMLElement {
                     border-radius: 0.5rem;
                     box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.4);
                     transition: 0.2s;
+                    touch-action: manipulation;
                 }
 
                 .card.correct {
