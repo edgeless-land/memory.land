@@ -153,7 +153,7 @@ class MemoryBoard extends HTMLElement {
             card.setAttribute("id", i);
 
             card.classList.add("card");
-            card.addEventListener("click", this.#handleCardClick.bind(this, i));
+            card.addEventListener("pointerdown", this.#handleCardClick.bind(this, i));
 
             cards.push(card);
             this.#shadow.appendChild(card);
