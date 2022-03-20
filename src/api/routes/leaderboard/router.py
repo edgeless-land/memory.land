@@ -4,7 +4,7 @@ from db.client import eldbcc
 from fastapi import APIRouter
 from fastapi.exceptions import HTTPException
 
-from .helpers.blacklist import INITIALS_BLACK_LIST
+from .helpers.profanity_check import is_initials_safe
 from .models.times import OfTimes
 
 leaderboard_router = APIRouter()
@@ -23,8 +23,8 @@ async def add_score_to_leaderboard(score: int, initials: str = "????"):
     if initials.isalpha() is False:
         raise HTTPException(400, "Initials must be alphabetic.")
 
-    if initials.lower() in INITIALS_BLACK_LIST:
-        raise HTTPException(400, "Initials are not allowed.")
+    if is_initials_safe(initials):
+        raise HTTPException(400, "Initials are not allowed (profanity).")
 
     await eldbcc["Memory"]["Leaderboard"].insert_one(
         {
@@ -52,7 +52,11 @@ async def get_leaderboard(amount: int = 10, of: OfTimes = OfTimes.WEEK):
     leaderboard = (
         await eldbcc["Memory"]["Leaderboard"]
         .find(
-            {"achieved_at": {"$gte": datetime.utcnow() - timedelta(days=int(of.value))}},
+            {
+                "achieved_at": {
+                    "$gte": datetime.utcnow() - timedelta(days=int(of.value))
+                }
+            },
             sort=[("score", -1), ("achieved_at", -1)],
         )
         .to_list(amount)
