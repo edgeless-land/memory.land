@@ -15,6 +15,7 @@ window.addEventListener("DOMContentLoaded", () => {
     let max_lives = 3;
     let score = 0;
     let round = 0;
+    let refreshing = false;
 
     let initials = "unkn";
 
@@ -23,7 +24,7 @@ window.addEventListener("DOMContentLoaded", () => {
         size: 3,
         size_max: 6,
         answers: 3,
-        answers_max: 20,
+        answers_max: 18,
         preview_time: 750,
     };
     let difficulty_defaults = {
@@ -31,7 +32,7 @@ window.addEventListener("DOMContentLoaded", () => {
         size: 3,
         size_max: 6,
         answers: 3,
-        answers_max: 20,
+        answers_max: 18,
         preview_time: 750,
     };
 
@@ -70,7 +71,11 @@ window.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Refresh the game menu leaderboard score
     async function refreshLeaderboard() {
+        if (refreshing) return;
+        refreshing = true;
+
         let req = await fetch(API + "/leaderboard/?amount=20");
         let scores = await req.json();
         
@@ -81,6 +86,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
             leaderboard_scores.appendChild(item);
         }
+
+        refreshing = false;
     }
 
     // Show the game board and related stats
