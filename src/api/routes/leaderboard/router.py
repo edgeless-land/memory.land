@@ -41,7 +41,7 @@ async def add_score_to_leaderboard(score: int, initials: str = "????"):
 
 
 @leaderboard_router.get("/")
-async def get_leaderboard(amount: int = 10, of: OfTimes = OfTimes.WEEK):
+async def get_leaderboard(amount: int = 10, of: OfTimes = OfTimes.HALFDAY):
     """
     Get the leaderboard.
     """
