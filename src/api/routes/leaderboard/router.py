@@ -54,7 +54,7 @@ async def get_leaderboard(amount: int = 10, of: OfTimes = OfTimes.HALFDAY):
         .find(
             {
                 "achieved_at": {
-                    "$gte": datetime.utcnow() - timedelta(days=int(of.value))
+                    "$gte": datetime.utcnow() - timedelta(days=float(of.value))
                 }
             },
             sort=[("score", -1), ("achieved_at", -1)],
